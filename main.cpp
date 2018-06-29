@@ -45,7 +45,7 @@ int main()
 
 void genParticle()
 {
-	/**/
+	/*Hello*/
 }
 
 void checkGivenValue()
