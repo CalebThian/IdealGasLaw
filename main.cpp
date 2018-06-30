@@ -5,6 +5,9 @@
 #include <cstdlib>
 using namespace std;
 
+/*mass of an atom*/
+const double m=40.0*1.667*pow(10,-27);
+
 /*number of particles*/
 const int N=5;
 
@@ -60,6 +63,7 @@ Particle  p1[N];
 void initParticle();//initialize a particle with position and velocity
 void checkGivenValue();//printf given value
 void printParticleProp(int a);//printf specific particle property
+void calTemperature();//calculate instant temperature
 
 int main()
 {
@@ -94,6 +98,10 @@ void initParticle()
 
 void checkGivenValue()
 {
+	printf("m = ");
+	printf("%.4e",m);
+	printf("\n");
+
 	printf("N = ");
 	printf("%d",N);
     printf("\n");
@@ -160,4 +168,18 @@ void printParticleProp(int a)
 	printf("v_z = ");
 	printf("%.4e",p1[a].zd);
 	printf("\n");
+}
+
+void calTemperature()
+{
+	double Ek=0;
+
+	/*calculate the total kinetic energy*/
+	for(int i=0;i<N;++i)
+	{
+		Ek+=0.5*m*pow(pow(p1[i].xd,2)+pow(p1[i].yd,2)+pow(p1[i].zd,2),1);
+	}
+
+	/*1.5*kb*T=Ek*/
+	T=Ek/kb/1.5;
 }
