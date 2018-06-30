@@ -3,6 +3,7 @@
 #include <cmath>
 #include <ctime>
 #include <cstdlib>
+#include <vector>
 using namespace std;
 
 /*mass of an atom*/
@@ -32,6 +33,9 @@ double T=273;
 /*pressure*/
 double P=0;
 
+/*certain amount of time for calculation of P*/
+double tt=2;
+
 /*epsilon for Lennard-Jones Potential*/
 double ep = 1.66*pow(10,-21);
 
@@ -60,10 +64,14 @@ struct Particle
 /*new a particle array*/
 Particle  p1[N];
 
+/* create a vector which save the pressure over a certain time*/
+vector <double> pressure;
+
 void initParticle();//initialize a particle with position and velocity
 void checkGivenValue();//printf given value
 void printParticleProp(int a);//printf specific particle property
 void calTemperature();//calculate instant temperature
+void calPressure();//calculate a particular time interval average pressure
 
 int main()
 {
@@ -182,4 +190,15 @@ void calTemperature()
 
 	/*1.5*kb*T=Ek*/
 	T=Ek/kb/1.5;
+}
+
+void calPressure()
+{
+	P=0;//initialize P
+	
+	/*summation of pressure*/
+	for(int i=0;i<pressure.size();++i)
+		P+=pressure.at(i);
+
+	P/=(tt*L*L);
 }
