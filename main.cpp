@@ -15,13 +15,25 @@ double L=2*pow(10,-7);
 double h=1*pow(10,-1);
 
 /*time for observation/simulation*/
-double T=10;
+double t=10;
 
 /*bolztzman constant*/
 double kb = 1.381*pow(10,-23);
 
 /*speed limit in specific direction*/
 double vl=L/3;
+
+/*temperature*/
+double T=273;
+
+/*pressure*/
+double P=0;
+
+/*epsilon for Lennard-Jones Potential*/
+double ep = 1.66*pow(10,-21);
+
+/*delta for Lennard-Jones Potential*/
+double de = 3.4*pow(10,-10);
 
 /*struct of a particle, inclue its position and velocity*/
 struct Particle
@@ -35,6 +47,11 @@ struct Particle
 	double xd;
 	double yd;
 	double zd;
+
+	/*acceleration*/
+	double xdd;
+	double ydd;
+	double zdd;
 };
 
 /*new a particle array*/
@@ -55,6 +72,7 @@ int main()
 
 void initParticle()
 {
+	/*as rand() is a int function, we use it by change the initial value to int and then *pow(10,??)to get the approximate value*/
 	int Lb = L*pow(10,14);
 	int vlb = vl*pow(10,-2*log10(vl));
 	cout<<"vlb = "<<vlb<<endl;
@@ -67,6 +85,10 @@ void initParticle()
 		p1[i].xd=rand()%vlb*pow(10,2*log10(vl));
 		p1[i].yd=rand()%vlb*pow(10,2*log10(vl));
 		p1[i].zd=rand()%vlb*pow(10,2*log10(vl));
+
+		p1[i].xdd=0;
+		p1[i].ydd=0;
+		p1[i].zdd=0;
 	}
 }
 
@@ -84,8 +106,8 @@ void checkGivenValue()
 	printf("%.4e",h);
 	printf("\n");
 
-	printf("T = ");
-	printf("%.4e",T);
+	printf("t = ");
+	printf("%.4e",t);
 	printf("\n");
 
 	printf("kb = ");
@@ -94,6 +116,22 @@ void checkGivenValue()
 
 	printf("vl = ");
 	printf("%.4e",vl);
+	printf("\n");
+
+	printf("T = ");
+	printf("%.4e",T);
+	printf("\n");
+
+	printf("P = ");
+	printf("%.4e",P);
+	printf("\n");
+
+	printf("epsilon, ep = ");
+	printf("%.4e",ep);
+	printf("\n");
+
+	printf("delta, de = ");
+	printf("%.4e",de);
 	printf("\n");
 }
 
