@@ -72,6 +72,7 @@ void checkGivenValue();//printf given value
 void printParticleProp(int a);//printf specific particle property
 void calTemperature();//calculate instant temperature
 void calPressure();//calculate a particular time interval average pressure
+void generalCal(int a);//calculate a specific particle's position,velocity and acceleration
 
 int main()
 {
@@ -195,10 +196,20 @@ void calTemperature()
 void calPressure()
 {
 	P=0;//initialize P
-	
 	/*summation of pressure*/
 	for(int i=0;i<pressure.size();++i)
 		P+=pressure.at(i);
 
 	P/=(tt*L*L);
+
+	pressure.clear();//clear pressure
+}
+
+void generalCal(int a)
+{
+	//if collision with wall:r(t)=r(t)/scalar of r(t)*2*L-r(t),v(t)=-v(t)
+	//verlet algorithm:r(t+h)=2*r(t)-r(t-h)+h*h*F(r,v,t)/m;
+	//verlet algorithm:v(t)=(r(t+h)-r(t-h))/2/h
+	//Lennard-Jones Force:F(r)=ep/de*[12*pow((de/r),13)-6*pow((de/r),7)];
+	//Lennard-JOnes Potential:U(r)=4*ep[pow((de/r),12)-pow((de/r),6)]
 }
